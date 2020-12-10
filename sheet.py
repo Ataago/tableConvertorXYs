@@ -1,6 +1,7 @@
 from configs import __X__, __Y__, __VALUE__
 
 import pandas as pd
+from pathlib import Path
 
 class Sheet:
     def __init__(self,sheet_name, df):
@@ -45,7 +46,8 @@ class Sheet:
         return new_df
 
     def save_csv(self, df, file_name):
-        df.to_csv(file_name)
+        out_dir = Path("output")
+        df.to_csv(out_dir / file_name)
 
 
 
