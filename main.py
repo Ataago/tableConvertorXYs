@@ -37,5 +37,6 @@ def main(file_path, X, Y, V, saveAs, convertor):
         sheet.save_excel(new_sheet, f"{saveAs}")
 
     else:
-        print("Invalid convertor selected.")
+        raise Exception(f"Invalid convertor name: '{convertor}'.")
+
 
