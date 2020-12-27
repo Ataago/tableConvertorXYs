@@ -93,7 +93,7 @@ class Sheet:
     def save_excel(self, df, file_name):
         out_dir = Path("output")
         writer = pd.ExcelWriter(out_dir / str(file_name + ".xlsx"),  engine="xlsxwriter")
-        df.to_excel(writer, sheet_name=str(file_name), index=False)
+        df.to_excel(writer, sheet_name=str(file_name))
         writer.save()
 
 
