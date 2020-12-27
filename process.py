@@ -16,5 +16,6 @@ for idx, row in df.iterrows():
                 saveAs=row['save_as'],
                 convertor=row['convertor']
             )
+            print(f"Generated {row['save_as']} for {row['file_path']} using {row['convertor']}.")
     except Exception as e:
         print(e)
