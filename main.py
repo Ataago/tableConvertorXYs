@@ -7,7 +7,7 @@ from pathlib import Path
 
 def main(file_path, X, Y, V, saveAs, convertor):
     file_path = Path(file_path)
-    sheets = pd.read_excel(file_path, sheet_name=None)
+    sheets = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
 
     sheet_names = []
     for sheet in sheets.keys():

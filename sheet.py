@@ -1,6 +1,7 @@
 
 import pandas as pd
 from pathlib import Path
+from ast import literal_eval
 
 class Sheet:
     def __init__(self,sheet_name, df):
@@ -17,24 +18,33 @@ class Sheet:
     def get_col_names(self):
         self.col_names = list(self.sheet_df.columns)
 
-    def save_col(self, col_name):
+    def validate_cols(self, col_names):
+        try:
+            col_names = literal_eval(col_names)
+        except Exception as err:
+            print(f"Please check the mappings CSV for '{col_names}' syntax, should be ['something1', 'something2']")
+
+        for col_name in col_names:
+            if col_name not in self.col_names:
+                print(f"'{col_name}' does not exist in '{self.sheet_name}'")
+                raise Exception
+        return col_names
+
+    def validate_col(self, col_name):
         if col_name not in self.col_names:
-            print(f"{col_name} not exists in {self.sheet_name}")
+            print(f"'{col_name}' does not exist in '{self.sheet_name}'")
             raise Exception
-        return True
+        return col_name
 
     def save_cols(self, X, Y, V):
-        if self.save_col(X):
-            self.X = X
-        if self.save_col(Y):
-            self.Y = Y
-        if self.save_col(V):
-            self.V = V
+        self.X = self.validate_cols(X)
+        self.Y = self.validate_cols(Y)
+        self.V = self.validate_col(V)
 
     def convertor1(self):
         Xs = []
         for col in self.col_names:
-            if col != self.Y and col != self.V:
+            if col not in self.Y and col != self.V:
                 Xs.append(col)
 
         new_df = self.sheet_df.pivot_table(values=self.V, index=Xs, columns=self.Y, aggfunc="sum")
