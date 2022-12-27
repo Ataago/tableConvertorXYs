@@ -1,2 +1,3 @@
 exec,file_path,convertor,save_as,x,y,v
-1,data/PracticesWithImpacts.xlsx,convertor_1,test5,"['Factor', 'SustainabilityFactorDimensionRecoded']","['SustainabilityPerformanceDimensionRecoded']",RelationshipRecoded
+0,data/PracticesWithImpacts.xlsx,convertor_1,test5,"['Factor', 'SustainabilityFactorDimensionRecoded']","['SustainabilityPerformanceDimensionRecoded']",RelationshipRecoded
+1,data/20221227_PracticesWithImpacts.xlsx,convertor_3,ImpactOfPracticesOnly3,"['Author','Factor', 'SustainabilityFactorDimensionRecoded','MediatingFactor','ExtentOfMediation']",['SustainabilityPerformanceDimensionRecoded'],RelationshipRecoded

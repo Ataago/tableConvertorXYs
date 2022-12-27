@@ -57,6 +57,13 @@ class Sheet:
     def get_values(self):
         self.values_list = sorted(list(set(self.sheet_df[self.V])))
 
+    @staticmethod
+    def get_super(x):
+        normal = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-=()"
+        super_s = "ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻᵃᵇᶜᵈᵉᶠᵍʰᶦʲᵏˡᵐⁿᵒᵖ۹ʳˢᵗᵘᵛʷˣʸᶻ⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾"
+        res = x.maketrans(''.join(normal), ''.join(super_s))
+        return x.translate(res)
+
     def agg_1(self, x):
         values = {}
         for value in self.values_list:
@@ -69,7 +76,12 @@ class Sheet:
         for value in values.items():
             if value[1] != 0:
                 out_dic[value[0]] = value[1]
-        out = str(out_dic)[1:-1].replace("'", "").replace(": ", "(").replace(",", ")") + ")"
+
+        out = ""
+        for key, val in out_dic.items():
+            out += key
+            if val > 1:
+                out += self.get_super(x=str(val))
 
         return out
 
