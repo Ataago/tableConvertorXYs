@@ -1,13 +1,13 @@
 import pandas as pd
 from pathlib import Path
-
+import os
 
 # USER INPUTS
-INPUT_FILE_PATH = Path("../input/dataset.xlsx")
-OUTPUT_FILE_PATH = Path("../output/data_out.xlsx")
-COLUMN_KEYWORD_TO_CONCATENATE = str("utho")
-NEW_COLUMN_NAME = str("NEW_COLUMN_NAME")
-CONCATENATOR = str(' | ')
+INPUT_FILE_PATH = Path(os.getenv("INPUT_FILE_PATH", "../input/dataset.xlsx"))
+OUTPUT_FILE_PATH = Path(os.getenv("OUTPUT_FILE_PATH", "../output/data_out.xlsx"))
+COLUMN_KEYWORD_TO_CONCATENATE = str(os.getenv("COLUMN_KEYWORD_TO_CONCATENATE", "utho"))
+NEW_COLUMN_NAME = str(os.getenv("NEW_COLUMN_NAME", "NEW_COLUMN_NAME"))
+CONCATENATOR = str(os.getenv("CONCATENATOR", ', '))
 
 
 def save_excel(df, out_file_path):
