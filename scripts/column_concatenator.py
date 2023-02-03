@@ -1,23 +1,38 @@
 import pandas as pd
 from pathlib import Path
 import os
+import pyreadstat
 
 # USER INPUTS
-INPUT_FILE_PATH = Path(os.getenv("INPUT_FILE_PATH", "../input/dataset.xlsx"))
-OUTPUT_FILE_PATH = Path(os.getenv("OUTPUT_FILE_PATH", "../output/data_out.xlsx"))
-COLUMN_KEYWORD_TO_CONCATENATE = str(os.getenv("COLUMN_KEYWORD_TO_CONCATENATE", "utho"))
-NEW_COLUMN_NAME = str(os.getenv("NEW_COLUMN_NAME", "NEW_COLUMN_NAME"))
+INPUT_FILE_PATH = Path(os.getenv("INPUT_FILE_PATH", "../input/dataset.sav"))
+OUTPUT_FILE_PATH = Path(os.getenv("OUTPUT_FILE_PATH", "../output/data_out.sav"))
+COLUMN_KEYWORD_TO_CONCATENATE = str(os.getenv("COLUMN_KEYWORD_TO_CONCATENATE", "Author."))
+NEW_COLUMN_NAME = str(os.getenv("NEW_COLUMN_NAME", "New Column"))
 CONCATENATOR = str(os.getenv("CONCATENATOR", ', '))
 
 
-def save_excel(df, out_file_path):
-    writer = pd.ExcelWriter(out_file_path, engine="xlsxwriter")
-    df.to_excel(writer)
-    writer.save()
+def save_output(df, out_file_path):
+    if out_file_path.suffix == '.xlxs':
+        writer = pd.ExcelWriter(out_file_path, engine="xlsxwriter")
+        df.to_excel(writer)
+        writer.save()
+
+    elif out_file_path.suffix == '.sav':
+        pyreadstat.write_sav(df, out_file_path)
+
+    else:
+        raise Exception(f"OUTPUT_FILE_PATH extension is not supported to save : {out_file_path.suffix}")
 
 
-def read_excel(in_file_path):
-    return pd.read_excel(in_file_path, engine='openpyxl')
+def read_input(in_file_path):
+    if in_file_path.suffix == '.xlxs':
+        return pd.read_excel(in_file_path, engine='openpyxl')
+
+    elif in_file_path.suffix == '.sav':
+        return pd.read_spss(in_file_path)
+
+    else:
+        raise Exception(f"INPUT_FILE_PATH extension is not supported to read : {in_file_path.suffix}")
 
 
 def concatenator(df):
@@ -34,6 +49,14 @@ def concatenator(df):
 
 if __name__ == '__main__':
 
-    df = read_excel(in_file_path=INPUT_FILE_PATH).fillna('')
+    df = read_input(in_file_path=INPUT_FILE_PATH).fillna('')
     df = concatenator(df=df)
-    save_excel(df=df, out_file_path=OUTPUT_FILE_PATH)
+    save_output(df=df, out_file_path=OUTPUT_FILE_PATH)
+
+
+# USER INPUTS
+INPUT_FILE_PATH = Path("C:/Users/Principal/Google Drive/PhD - VTU/#My PhD Work/SPSS/ExtractedData/dataset.xlsx")
+OUTPUT_FILE_PATH = Path("C:/Users/Principal/Google Drive/PhD - VTU/#My PhD Work/SPSS/ExtractedData/data_out.xlsx")
+COLUMN_KEYWORD_TO_CONCATENATE = str("Author.")
+NEW_COLUMN_NAME = str("AuthorConcatenated")
+CONCATENATOR = str(', ')
