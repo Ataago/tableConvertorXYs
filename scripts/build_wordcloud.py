@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 
 # Define the path
-path = 'G:/My Drive/PhD - VTU/202306 Conference & Journals special issues/'
+path = '/Users/ataago/Documents/git/tableConvertorXYs/input/'
+out_path = '/Users/ataago/Documents/git/tableConvertorXYs/output/'
 
 # Reload the data
 data = pd.read_excel(path + "PracticesWithImpacts(edited2).xlsx", header=0)
@@ -18,7 +19,7 @@ plt.imshow(wordcloud_practice, interpolation='bilinear')
 plt.axis('off')
 plt.title('Word Cloud for Sustainable Practice', fontweight='bold', fontsize=20, color='darkred')
 # Save the word cloud as a .png file
-plt.savefig(path + '/Python Code/wordcloud_sustainable_practice.png')
+plt.savefig(out_path + 'wordcloud_sustainable_practice.png')
 plt.show()
 
 # Generate a word cloud for 'Performance Outcome'
@@ -30,5 +31,5 @@ plt.imshow(wordcloud_outcome, interpolation='bilinear')
 plt.axis('off')
 plt.title('Word Cloud for Performance Outcome', fontweight='bold', fontsize=20, color='darkred')
 # Save the word cloud as a .png file
-plt.savefig(path + '/Python Code/wordcloud_performance_outcome.png')
+plt.savefig(out_path + 'wordcloud_performance_outcome.png')
 plt.show()
