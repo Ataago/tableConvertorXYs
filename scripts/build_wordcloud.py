@@ -11,14 +11,15 @@ out_path = '/Users/ataago/Documents/git/tableConvertorXYs/output/'
 data = pd.read_excel(path + "PracticesWithImpacts(edited2).xlsx", header=0)
 
 # Generate a word cloud for 'Sustainable Practice'
-wordcloud_practice = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(data['Sustainable Practice'].value_counts())
+wordcloud_practice = WordCloud(width=1600, height=800, background_color='white').generate_from_frequencies(data['Sustainable Practice'].value_counts())
 
 # Display the word cloud
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(20, 10))
 plt.imshow(wordcloud_practice, interpolation='bilinear')
 plt.axis('off')
-plt.title('Word Cloud for Sustainable Practice', fontweight='bold', fontsize=20, color='darkred')
+# plt.title('Word Cloud for Sustainable Practice', fontweight='bold', fontsize=20, color='darkred')
 # Save the word cloud as a .png file
+plt.tight_layout()
 plt.savefig(out_path + 'wordcloud_sustainable_practice.png')
 plt.show()
 
