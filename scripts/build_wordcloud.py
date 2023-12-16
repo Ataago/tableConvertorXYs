@@ -24,13 +24,14 @@ plt.savefig(out_path + 'wordcloud_sustainable_practice.png')
 plt.show()
 
 # Generate a word cloud for 'Performance Outcome'
-wordcloud_outcome = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(data['Performance Outcome'].value_counts())
+wordcloud_outcome = WordCloud(width=1600, height=800, background_color='white').generate_from_frequencies(data['Performance Outcome'].value_counts())
 
 # Display the word cloud
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(20, 10))
 plt.imshow(wordcloud_outcome, interpolation='bilinear')
 plt.axis('off')
-plt.title('Word Cloud for Performance Outcome', fontweight='bold', fontsize=20, color='darkred')
+# plt.title('Word Cloud for Performance Outcome', fontweight='bold', fontsize=20, color='darkred')
+plt.tight_layout()
 # Save the word cloud as a .png file
 plt.savefig(out_path + 'wordcloud_performance_outcome.png')
 plt.show()
